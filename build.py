@@ -1,11 +1,8 @@
 import numpy as np
-import pandas as pd
-import sklearn as sk
-#import xgboost
 
 from data_import import loadData
 from preprocess import preprocessData
-from learning import preprareDta, modelFunc, modelPredict, compute_MSE
+from learning import prepareData, modelFunc, modelPredict, compute_MSE
 from kfold import kFoldSplit
 
 if __name__ == '__main__':
@@ -16,6 +13,24 @@ if __name__ == '__main__':
 
     learningDataX, learningDataY = prepareData(tData)
 
+    params = {
+        'max_depth': 5,
+        'n_estimators': 50,
+        'objective': 'reg:linear',
+        'base_score': 0.5,
+        'colsample_bytree': 1,
+        'gamma': 0,
+        'learning_rate': 0.1,
+        'max_delta_step': 0,
+        'max_depth': 3,
+        'min_child_weight': 1,
+        'missing': None,
+        'n_estimators': 100,
+        'nthread': -1,
+        'seed': 0,
+        'silent': True,
+        'subsample': 1}
+
     # K - FOLD
     k = 5
     MSEtab = []
@@ -23,7 +38,7 @@ if __name__ == '__main__':
         print ("K-Fold iteration: #" + str(i))
         kLearningDataX, kLearningDataY, kEvalDataX, kEvalDataY = kFoldSplit(learningDataX, learningDataY)
 
-        model = modelFunc(kLearningDataX, kLearningDataY)
+        model = modelFunc(kLearningDataX, kLearningDataY, params)
         predictY = modelPredict(model, kEvalDataX)
 
         #EvalMethod ?
