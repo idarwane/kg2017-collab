@@ -1,9 +1,9 @@
 import numpy as np
 
-from data_import import loadData
-from preprocess import preprocessData
-from learning import prepareData, modelFunc, modelPredict, compute_MSE
-from kfold import kFoldSplit
+from src.kfold import kFoldSplit
+from src.preprocess import preprocessData
+from src.data_import import loadData
+from src.learning import prepareData, modelFunc, modelPredict, compute_MSE
 
 if __name__ == '__main__':
     data = loadData()
@@ -17,15 +17,14 @@ if __name__ == '__main__':
         'max_depth': 5,
         'n_estimators': 50,
         'objective': 'reg:linear',
+
         'base_score': 0.5,
         'colsample_bytree': 1,
         'gamma': 0,
         'learning_rate': 0.1,
         'max_delta_step': 0,
-        'max_depth': 3,
         'min_child_weight': 1,
         'missing': None,
-        'n_estimators': 100,
         'nthread': -1,
         'seed': 0,
         'silent': True,
